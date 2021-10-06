@@ -107,7 +107,7 @@ EOF
     content_type='Content-Type: application/json'
     url="$AUTH_URL/auth/tokens"
     USER_TOKEN=`curl $VERIFY_CA -s -i -X POST -H "$content_type" -d "$auth_json" $url \
-        | grep -i X-Subject-Token | awk '{print $2}' | tr -d '[[:space:]]'`
+        | grep -i ^X-Subject-Token | awk '{print $2}' | tr -d '[[:space:]]'`
 
     # Get CA certificate for this cluster. If the CA_CERT_TYPE is not etcd or front-proxy, it will return the default CA cert for kubelet
     curl $VERIFY_CA -X GET \
